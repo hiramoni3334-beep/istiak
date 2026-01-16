@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Bangladesh Time Prediction</title>
+
+<style>
+body{
+    font-family: Arial;
+    background:#eaeaea;
+    text-align:center;
+    margin-top:80px;
+}
+.box{
+    background:white;
+    padding:25px;
+    width:320px;
+    margin:auto;
+    border-radius:15px;
+    box-shadow:0 0 15px gray;
+}
+img{
+    width:100%;
+    border-radius:10px;
+    margin-bottom:15px;
+}
+button,input{
+    padding:10px;
+    width:90%;
+    margin:10px;
+}
+button{
+    background:green;
+    color:white;
+    border:none;
+    font-size:16px;
+}
+#predictionPage{display:none;}
+</style>
+</head>
+
+<body>
+
+<!-- Login Page -->
+<div class="box" id="loginPage">
+
+    <!-- Image -->
+    <img src="https://i.imgur.com/8Km9tLL.jpg" alt="Login Image">
+
+    <h2>Login</h2>
+    <input type="password" id="password" placeholder="Enter Password">
+    <button onclick="login()">Login</button>
+    <p id="error" style="color:red;"></p>
+</div>
+
+<!-- Prediction Page -->
+<div class="box" id="predictionPage">
+    <h3>Bangladesh Time</h3>
+    <h2 id="bdTime">--:--:--</h2>
+
+    <h3>30 Second Prediction</h3>
+    <h1 id="result">---</h1>
+
+    <p>Auto change every 30 seconds</p>
+</div>
+
+<script>
+function login(){
+    let pass = document.getElementById("password").value;
+    if(pass === "999"){
+        document.getElementById("loginPage").style.display="none";
+        document.getElementById("predictionPage").style.display="block";
+        startTime();
+        startPrediction();
+    }else{
+        document.getElementById("error").innerText="Wrong Password!";
+    }
+}
+
+// Bangladesh Time
+function startTime(){
+    setInterval(()=>{
+        let now = new Date();
+        let bdTime = new Date(
+            now.toLocaleString("en-US", { timeZone: "Asia/Dhaka" })
+        );
+        document.getElementById("bdTime").innerText =
+            bdTime.toLocaleTimeString();
+    },1000);
+}
+
+// 30 second prediction
+function startPrediction(){
+    function predict(){
+        let arr=["BIG","SMALL"];
+        let r=Math.floor(Math.random()*2);
+        document.getElementById("result").innerText=arr[r];
+    }
+    predict();
+    setInterval(predict,30000);
+}
+</script>
+
+</body>
+</html>
